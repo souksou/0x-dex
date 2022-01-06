@@ -46,7 +46,7 @@ export const TransactionProvider = ({children}) => {
     try {
       if (!ethereum) return alert('Please install metamask');
       const accounts = await ethereum.request({ method: 'eth_requestAccounts'});
-      setCurrentAccount(accounts);
+      setCurrentAccount(accounts[0]);
     } catch (error) {
        console.log(error);
        throw new Error('No ETH account')
