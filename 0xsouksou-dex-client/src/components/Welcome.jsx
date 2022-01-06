@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { AiFillAlipayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 
@@ -19,11 +18,19 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const Welcome = () => {
-    const { currentAccount, connectWallet } = useContext(TransactionContext);
+    const { currentAccount, connectWallet, handleChange, formData, sendTransaction, isLoading} = useContext(TransactionContext);
 
     const handleSubmit = (e) => {
         console.log("handleSubmit");
+        const { addressTo, amount, keyword, message} = formData;
+
+        e.preventDefault();
+
+        if (!addressTo || !amount || !keyword || !message) return;
+
+        sendTransaction();
     }
+
     return (
         <div className="flex w-full justify-center items-center">
             <div className="flex md:flex-row flex-col items-start justify-between md:p-20 py-12 py-4">
@@ -34,10 +41,12 @@ const Welcome = () => {
                     <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
                         Explore the new world
                     </p>
-                    <button type="button" className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2545bd]"
+                    { ! currentAccount && (
+                        <button type="button" className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2545bd]"
                         onClick={connectWallet}>
-                        <span className="text-white text-base font-semibold">Connect Wallet</span>
-                    </button>
+                            <span className="text-white text-base font-semibold">Connect Wallet</span>
+                        </button>
+                    )}
                 </div>
 
                 <div className="flex flex-col flex-1 items-center justify-center w-full mf:mt-0">
@@ -61,12 +70,12 @@ const Welcome = () => {
                     </div>
 
                     <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
-                        <Input placeholder="Address To" name="addressTo" type="text"  />
-                        <Input placeholder="Amount (ETH)" name="amount" type="number" />
-                        <Input placeholder="Keyword (Gif)" name="keyword" type="text"  />
-                        <Input placeholder="Enter Message" name="message" type="text"  />
+                        <Input placeholder="Address To" name="addressTo" type="text"  handleChange={handleChange}/>
+                        <Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={handleChange}/>
+                        <Input placeholder="Keyword (Gif)" name="keyword" type="text"  handleChange={handleChange}/>
+                        <Input placeholder="Enter Message" name="message" type="text"  handleChange={handleChange}/>
 
-                        {false
+                        {isLoading
                             ? <Loader />
                             : (
                                 <button
