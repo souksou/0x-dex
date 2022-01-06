@@ -5,6 +5,7 @@ import { BsInfoCircle } from "react-icons/bs";
 import { Loader } from ".";
 
 import { TransactionContext } from "../context/TransactionContext";
+import { shortenAddress } from "../utils/shortenAddress";
 
 const Input = ({ placeholder, name, type, value, handleChange }) => (
     <input
@@ -34,23 +35,11 @@ const Welcome = () => {
     return (
         <div className="flex w-full justify-center items-center">
             <div className="flex md:flex-row flex-col items-start justify-between md:p-20 py-12 py-4">
-                <div className="flex flex-1 justify-start flex-col md:mr-10">
-                    <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
-                        Send me your crypto
+                <div className="flex flex-1 justify-start flex-col">
+                    <h1 className="text-3xl sm:text-3xl text-white py-1">
+                        Web3 is the future, send your friend a small gift.
                     </h1>
-                    <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-                        Explore the new world
-                    </p>
-                    { ! currentAccount && (
-                        <button type="button" className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2545bd]"
-                        onClick={connectWallet}>
-                            <span className="text-white text-base font-semibold">Connect Wallet</span>
-                        </button>
-                    )}
-                </div>
-
-                <div className="flex flex-col flex-1 items-center justify-center w-full mf:mt-0">
-                    <div className="p-3 flex justify-end items-start flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism">
+                    <div className="p-3 flex justify-end items-end flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism">
                         <div className="flex justify-between flex-col w-full h-full">
                             <div className="flex justify-between items-start">
                                 <div className="w-10 h-10 rounded-full border-2 border-white flex justify-center items-center">
@@ -60,7 +49,7 @@ const Welcome = () => {
                             </div>
                             <div>
                                 <p className="text-white font-light truncate text-sm">
-                                    {currentAccount}
+                                    {shortenAddress(currentAccount)}
                                 </p>
                                 <p className="text-white font-bold text-sm">
                                     Ethereum
@@ -68,7 +57,18 @@ const Welcome = () => {
                             </div>
                         </div>
                     </div>
+                    <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
+                        Explore the new world, send message in decentralized.
+                    </p>
+                    { ! currentAccount && (
+                        <button type="button" className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2545bd]"
+                        onClick={connectWallet}>
+                            <span className="text-white text-base font-semibold">Connect Wallet</span>
+                        </button>
+                    )}
+                </div>
 
+                <div className="flex flex-col flex-1 items-center justify-center w-full mf:mt-10">
                     <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
                         <Input placeholder="Address To" name="addressTo" type="text"  handleChange={handleChange}/>
                         <Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={handleChange}/>

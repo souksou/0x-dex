@@ -1,12 +1,10 @@
-import { Navbar, Welcome } from "./components"
+import { Navbar, Welcome, Transactions } from "./components"
 
 function App() {
   return (
-    <div className="min-h-screen">
-        <div className="gradient-bg-welcome">
-          <Navbar />
-          <Welcome />
-        </div>
+    <div className="min-h-screen gradient-bg-welcome">
+        <Welcome />
+        <Transactions />
     </div>
   )
 }
