@@ -18,7 +18,7 @@ const getEthereumContract = () => {
 export const TransactionProvider = ({children}) => {
 
   const [currentAccount, setCurrentAccount] = useState('');
-  const [formData, setFormData] = useState({addressTo: '', amount: '', keyword: '', message: ''});
+  const [formData, setFormData] = useState({addressTo: '', amount: '', message: ''});
   const [isLoading, setIsLoading] = useState(false);
   const [transactionCount, setTransactionCount] = useState(localStorage.getItem('transactionCount'));
   const [transactions, setTransactions] = useState([]);
@@ -75,7 +75,7 @@ export const TransactionProvider = ({children}) => {
   const sendTransaction = async() => {
     try {
       if (ethereum) {
-        const { addressTo, amount, keyword, message } = formData;
+        const { addressTo, amount, message } = formData;
         const parsedAmount = ethers.utils.parseEther(amount);
         const transactionsContract = getEthereumContract();
 
@@ -89,7 +89,7 @@ export const TransactionProvider = ({children}) => {
           }]
         });
 
-        const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, keyword);
+        const transactionHash = await transactionsContract.addToBlockchain(addressTo, parsedAmount, message, '');
 
         setIsLoading(true);
         console.log(`Loading - ${transactionHash}`);

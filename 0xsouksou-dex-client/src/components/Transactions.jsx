@@ -2,6 +2,7 @@
 import React, { useContext } from "react";
 import { TransactionContext } from "../context/TransactionContext";
 import { shortenAddress } from "../utils/shortenAddress";
+import { FiArrowRightCircle } from "react-icons/fi";
 
 const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, amount }) => {
     return (
@@ -16,10 +17,14 @@ const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, amount }
         <div className="flex flex-col items-center w-full mt-3">
           <div className="display-flex justify-start w-full mb-6 p-2">
             <a href={`https://ropsten.etherscan.io/address/${addressFrom}`} target="_blank" rel="noreferrer">
-              <p className="text-white text-base">From: {shortenAddress(addressFrom)}</p>
+              <p className="flex text-white text-base"><span className="pr-5">From: {shortenAddress(addressFrom)}</span>
+              <span className="pt-1"><FiArrowRightCircle/></span>
+              </p>
             </a>
             <a href={`https://ropsten.etherscan.io/address/${addressTo}`} target="_blank" rel="noreferrer">
-              <p className="text-white text-base">To: {shortenAddress(addressTo)}</p>
+              <p className="flex text-white text-base"><span className="pr-5">From: {shortenAddress(addressTo)}</span>
+              <span className="pt-1"><FiArrowRightCircle/></span>
+              </p>
             </a>
             <p className="text-white text-base">Amount: {amount} ETH</p>
             {message && (
@@ -39,20 +44,16 @@ const TransactionsCard = ({ addressTo, addressFrom, timestamp, message, amount }
 
 const Transactions = () => {
 
-    const { currentAccount, connectWallet, transactions } = useContext(TransactionContext)
+    const { currentAccount, transactions } = useContext(TransactionContext)
 
     return (
         <div className="flex w-full justify-center items-center 2xl:px-20 ">
-            <div className="flex flex-col md-p-12 py-12 px-4">
+            <div className="flex flex-col md:p-12 py-12 px-4">
                 { currentAccount ? (
-                    <h3 className="text-white text-3xl text-center my-2">Transactions</h3>
+                    <h3 className="text-white text-3xl text-center my-2">My latest transactions</h3>
                 ) : (
                     <div className="flex">
-                        <h3 className="text-white text-3xl text-center my-2"> Connect your account to see all transactions</h3>
-                        <button type="button" className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2545bd] mt-20"
-                        onClick={connectWallet}>
-                            <span className="text-white text-base font-semibold">Connect Wallet</span>
-                        </button>
+                        <h3 className="text-white text-3xl text-center my-2"> Connect your account via Metamask to see all your transactions</h3>
                     </div>
                 )}
 

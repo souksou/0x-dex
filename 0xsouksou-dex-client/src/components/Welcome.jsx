@@ -22,22 +22,21 @@ const Welcome = () => {
     const { currentAccount, connectWallet, handleChange, formData, sendTransaction, isLoading} = useContext(TransactionContext);
 
     const handleSubmit = (e) => {
-        console.log("handleSubmit");
-        const { addressTo, amount, keyword, message} = formData;
+        const { addressTo, amount, message} = formData;
 
         e.preventDefault();
 
-        if (!addressTo || !amount || !keyword || !message) return;
+        if (!addressTo || !amount || !message) return;
 
         sendTransaction();
     }
 
     return (
         <div className="flex w-full justify-center items-center">
-            <div className="flex md:flex-row flex-col items-start justify-between md:p-20 py-12 py-4">
+            <div className="flex md:flex-row flex-col items-start justify-between p-5 md:p-20 py-12 py-4">
                 <div className="flex flex-1 justify-start flex-col">
                     <h1 className="text-3xl sm:text-3xl text-white py-1">
-                        Web3 is the future, send your friend a small gift.
+                        Web3 is the future, send to your friend a small gift.
                     </h1>
                     <div className="p-3 flex justify-end items-end flex-col rounded-xl h-40 sm:w-72 w-full my-5 eth-card .white-glassmorphism">
                         <div className="flex justify-between flex-col w-full h-full">
@@ -57,8 +56,8 @@ const Welcome = () => {
                             </div>
                         </div>
                     </div>
-                    <p className="text-left mt-5 text-white font-light md:w-9/12 w-11/12 text-base">
-                        Explore the new world, send message in decentralized.
+                    <p className="text-left mt-5 mb-5 text-white font-light md:w-9/12 w-11/12 text-base">
+                        Explore the new world, send your message + crypto in decentralized.
                     </p>
                     { ! currentAccount && (
                         <button type="button" className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2545bd]"
@@ -72,7 +71,6 @@ const Welcome = () => {
                     <div className="p-5 sm:w-96 w-full flex flex-col justify-start items-center blue-glassmorphism">
                         <Input placeholder="Address To" name="addressTo" type="text"  handleChange={handleChange}/>
                         <Input placeholder="Amount (ETH)" name="amount" type="number" handleChange={handleChange}/>
-                        <Input placeholder="Keyword (Gif)" name="keyword" type="text"  handleChange={handleChange}/>
                         <Input placeholder="Enter Message" name="message" type="text"  handleChange={handleChange}/>
 
                         {isLoading
